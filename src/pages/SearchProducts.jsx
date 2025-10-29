@@ -9,7 +9,7 @@ import { useProducts } from '../contexts/ProductsContext';
 import ProductCard from '../components/ProductCard';
 
 const SearchProducts = () => {
-  const { products } = useProducts();
+  const { products, setSelectedCategory } = useProducts();
   const [searchProducts, setSearchProducts] = useState([]);
   const [showSortType, setShowSortType] = useState(false);
   const [selectedSortType, setSelectedSortType] = useState({
@@ -39,6 +39,7 @@ const SearchProducts = () => {
 
   // --- Поиск по запросу
   useEffect(() => {
+    setSelectedCategory(null);
     if (query.trim()) {
       setSearchProducts(
         products.filter((product) =>

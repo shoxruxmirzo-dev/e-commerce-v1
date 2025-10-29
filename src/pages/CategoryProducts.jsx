@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { Link, useParams } from 'react-router';
 
@@ -10,7 +10,7 @@ import ProductCard from '../components/ProductCard';
 import { useProducts } from '../contexts/ProductsContext';
 
 const CategoryProducts = () => {
-  const { categories, products, setSelectedCategory } = useProducts();
+  const { categories, products, setQuery, setSelectedCategory } = useProducts();
   const [showSortType, setShowSortType] = useState(false);
   const [selectedSortType, setSelectedSortType] = useState({
     name: 'Популярности',
@@ -63,8 +63,12 @@ const CategoryProducts = () => {
     }
   }, [filteredProducts, selectedSortType]);
 
+  useEffect(() => {
+    setQuery('');
+  }, []);
+
   return (
-    <div>
+    <div className="flex flex-col">
       {/* --- Breadcrumb --- */}
       <p className="text-muted-foreground text-xs">
         <Link to="/">
@@ -101,7 +105,7 @@ const CategoryProducts = () => {
       <div
         ref={ref}
         onClick={() => setShowSortType((prev) => !prev)}
-        className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10"
+        className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10 te"
       >
         <span className="text-muted-foreground">Сначала показывать:</span>
         <span>{selectedSortType.name}</span>
