@@ -13,9 +13,7 @@ const Login = () => {
 
   const ref = useRef(null);
 
-  useClickAway(ref, () => {
-    setShowUserLogin(false);
-  });
+  useClickAway(ref, () => setShowUserLogin(false));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +26,7 @@ const Login = () => {
 
   return (
     showUserLogin && (
-      <div className="fixed inset-0 z-20 flex items-center bg-black/50 text-gray-600 text-sm">
+      <div className="fixed inset-0 z-60 flex items-center bg-black/50 text-gray-600 text-sm">
         <form
           onSubmit={handleSubmit}
           ref={ref}

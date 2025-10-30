@@ -30,8 +30,8 @@ function App() {
       {/* Global Components */}
       <Toaster position="top-right" />
 
-      {/* <Catalog /> */}
-      {/* <Settings /> */}
+      <Catalog />
+      <Settings />
       <Login />
       <TopBar />
       <Header />

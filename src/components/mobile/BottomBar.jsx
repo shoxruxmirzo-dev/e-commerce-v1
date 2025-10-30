@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { ShoppingCart, Home, User, List, Heart } from 'lucide-react';
 import Button from '../ui/Button';
 
 import { useCart } from '../../contexts/CartContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { useProducts } from '../../contexts/ProductsContext';
 
 const BottomBar = () => {
   const { getCartTotalCount } = useCart();
-  const [selectedLink, setSelectedLink] = useState(null);
+  const { selectedLink, setSelectedLink, setShowUserCabinet } = useAuth();
+  const { setShowCatalog } = useProducts();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 border-t border-border bg-background text-muted-foreground lg:hidden flex justify-around py-2 z-50">
@@ -15,7 +18,11 @@ const BottomBar = () => {
         <Button
           variant={'home' === selectedLink ? 'routeLink' : 'ghost'}
           size="lg"
-          onClick={() => setSelectedLink('home')}
+          onClick={() => {
+            setSelectedLink('home');
+            setShowUserCabinet(false);
+            setShowCatalog(false);
+          }}
           className="flex flex-col max-xs:text-xs"
         >
           <Home className="max-xs:w-4" />
@@ -25,7 +32,11 @@ const BottomBar = () => {
       <Button
         variant={'catalog' === selectedLink ? 'routeLink' : 'ghost'}
         size="lg"
-        onClick={() => setSelectedLink('catalog')}
+        onClick={() => {
+          setSelectedLink('catalog');
+          setShowUserCabinet(false);
+          setShowCatalog(true);
+        }}
         className="flex flex-col max-xs:text-xs"
       >
         <List className="max-xs:w-4" />
@@ -35,7 +46,11 @@ const BottomBar = () => {
         <Button
           variant={'cart' === selectedLink ? 'routeLink' : 'ghost'}
           size="lg"
-          onClick={() => setSelectedLink('cart')}
+          onClick={() => {
+            setSelectedLink('cart');
+            setShowUserCabinet(false);
+            setShowCatalog(false);
+          }}
           className="flex flex-col relative max-xs:text-xs"
         >
           <ShoppingCart className="max-xs:w-4" />
@@ -49,7 +64,11 @@ const BottomBar = () => {
         <Button
           variant={'favorites' === selectedLink ? 'routeLink' : 'ghost'}
           size="lg"
-          onClick={() => setSelectedLink('favorites')}
+          onClick={() => {
+            setSelectedLink('favorites');
+            setShowUserCabinet(false);
+            setShowCatalog(false);
+          }}
           className="flex flex-col max-xs:text-xs"
         >
           <Heart className="max-xs:w-4" />
@@ -59,7 +78,11 @@ const BottomBar = () => {
       <Button
         variant={'profile' === selectedLink ? 'routeLink' : 'ghost'}
         size="lg"
-        onClick={() => setSelectedLink('profile')}
+        onClick={() => {
+          setSelectedLink('profile');
+          setShowUserCabinet(true);
+          setShowCatalog(false);
+        }}
         className="flex flex-col max-xs:text-xs"
       >
         <User className="max-xs:w-4" />

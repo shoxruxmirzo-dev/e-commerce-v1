@@ -90,7 +90,7 @@ const SearchProducts = () => {
         <div
           ref={ref}
           onClick={() => setShowSortType((prev) => !prev)}
-          className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10 self-end"
+          className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10"
         >
           <span className="text-muted-foreground">Сначала показывать:</span>
           <span>{selectedSortType.name}</span>
@@ -99,7 +99,7 @@ const SearchProducts = () => {
           {showSortType && (
             <div
               onClick={(e) => e.stopPropagation()}
-              className="absolute right-0 top-6 w-40 p-1 bg-background border border-border rounded shadow-2xl flex flex-col gap-2"
+              className="absolute left-0 top-6 w-40 p-1 bg-background border border-border rounded shadow-2xl flex flex-col gap-2"
             >
               {sortList.map((item, index) => (
                 <Button

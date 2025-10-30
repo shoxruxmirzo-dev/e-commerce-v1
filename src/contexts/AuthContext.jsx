@@ -4,7 +4,9 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
+  const [selectedLink, setSelectedLink] = useState(null);
   const [showUserLogin, setShowUserLogin] = useState(false);
+  const [showUserCabinet, setShowUserCabinet] = useState(false);
 
   const handleSignUp = async (name, email, password) => {
     setUser({ name, email, password });
@@ -29,8 +31,12 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     setUser,
+    selectedLink,
+    setSelectedLink,
     showUserLogin,
     setShowUserLogin,
+    showUserCabinet,
+    setShowUserCabinet,
     handleSignUp,
     handleSignIn,
     handleLogout,

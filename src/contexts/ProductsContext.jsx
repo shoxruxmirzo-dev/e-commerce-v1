@@ -10,6 +10,7 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const [showCatalog, setShowCatalog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const fetchCategories = async () => {
@@ -32,6 +33,8 @@ export const ProductsProvider = ({ children }) => {
     loading,
     query,
     setQuery,
+    showCatalog,
+    setShowCatalog,
     selectedCategory,
     setSelectedCategory,
   };

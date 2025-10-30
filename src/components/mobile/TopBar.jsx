@@ -28,7 +28,7 @@ const TopBar = () => {
           setIsFocused={setIsFocused}
           className="w-full"
         />
-        <div className="w-full flex items-center gap-2 overflow-x-auto scrollbar-none whitespace-nowrap">
+        {/* <div className="w-full flex items-center gap-2 overflow-x-auto scrollbar-none whitespace-nowrap">
           {categories.map((cat, index) => (
             <Link key={index} to={`/category/${cat.path.toLowerCase()}-${cat._id}`}>
               <Button
@@ -39,7 +39,7 @@ const TopBar = () => {
               </Button>
             </Link>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );

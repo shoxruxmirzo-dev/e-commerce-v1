@@ -24,7 +24,7 @@ const CategoryProducts = () => {
     { name: 'Популярности', sort: 'rating' },
     { name: 'Подешевле', sort: 'asc' },
     { name: 'Подороже', sort: 'desc' },
-    { name: 'По названию', sort: 'title' },
+    { name: 'По алфавиту', sort: 'title' },
   ];
 
   useClickAway(ref, () => setShowSortType(false));
@@ -105,7 +105,7 @@ const CategoryProducts = () => {
       <div
         ref={ref}
         onClick={() => setShowSortType((prev) => !prev)}
-        className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10 te"
+        className="relative mt-4 inline-flex items-center gap-1 rounded-xl bg-background cursor-pointer text-sm z-10"
       >
         <span className="text-muted-foreground">Сначала показывать:</span>
         <span>{selectedSortType.name}</span>
