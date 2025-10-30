@@ -1,6 +1,14 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router';
-import { Heart, ShoppingCart, CircleUserRound, LayoutList } from 'lucide-react';
+import { Link, useNavigate } from 'react-router';
+import {
+  Heart,
+  ShoppingCart,
+  CircleUserRound,
+  LayoutList,
+  ShoppingBag,
+  UserRoundCog,
+  LogOut,
+} from 'lucide-react';
 import { useClickAway } from 'react-use';
 
 import SearchBlock from './SearchBlock';
@@ -16,6 +24,7 @@ const Header = () => {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
+  const navigate = useNavigate();
   const ref = useRef(null);
 
   useClickAway(ref, () => {
@@ -69,7 +78,7 @@ const Header = () => {
               {user ? (
                 <div className="relative">
                   <Button
-                    onClick={() => setShowUserDropdown(true)}
+                    onClick={() => setShowUserDropdown((prev) => !prev)}
                     variant="ghost"
                     className="flex items-center gap-2"
                   >
@@ -79,7 +88,7 @@ const Header = () => {
                   {showUserDropdown && (
                     <div
                       ref={ref}
-                      className="absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col gap-2"
+                      className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col gap-2"
                     >
                       <Link
                         to="/user/orders"
@@ -87,23 +96,27 @@ const Header = () => {
                           setShowUserDropdown(false);
                         }}
                       >
-                        <Button variant="ghost" className="justify-normal w-full">
-                          Заказы
+                        <Button variant="ghost" className="justify-start font-normal w-full">
+                          <ShoppingBag size={20} strokeWidth={1.5} />
+                          Мои заказы
                         </Button>
                       </Link>
                       <Link to="/user/profile" onClick={() => setShowUserDropdown(false)}>
-                        <Button variant="ghost" className="justify-normal w-full">
+                        <Button variant="ghost" className="justify-start font-normal w-full">
+                          <UserRoundCog size={22} strokeWidth={1.5} />
                           Профиль
                         </Button>
                       </Link>
                       <Button
                         onClick={() => {
                           setUser(null);
+                          navigate('/');
                           setShowUserDropdown(false);
                         }}
                         variant="ghost"
-                        className="justify-normal w-full"
+                        className="justify-start w-full font-normal hover:text-destructive border-t border-border"
                       >
+                        <LogOut size={22} strokeWidth={1.5} />
                         Выйти из системы
                       </Button>
                     </div>

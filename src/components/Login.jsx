@@ -33,15 +33,14 @@ const Login = () => {
           className="flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] text-gray-500 rounded-lg shadow-xl border border-gray-200 bg-white"
         >
           <p className="text-2xl font-medium m-auto">
-            <span className="text-primary">User</span> {state === 'login' ? 'Login' : 'Sign Up'}
+            <span className="text-primary"></span> {state === 'login' ? 'Вход' : 'Регистрация'}
           </p>
           {state === 'register' && (
             <div className="w-full">
-              <p>Name</p>
+              <p>Ваше имя</p>
               <input
                 onChange={(e) => setName(e.target.value)}
-                value={name}
-                placeholder="type here"
+                placeholder=""
                 className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
                 type="text"
                 required
@@ -49,22 +48,20 @@ const Login = () => {
             </div>
           )}
           <div className="w-full ">
-            <p>Email</p>
+            <p>Электронная почта</p>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="type here"
+              placeholder=""
               className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
               type="email"
               required
             />
           </div>
           <div className="w-full ">
-            <p>Password</p>
+            <p>Пароль</p>
             <input
               onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="type here"
+              placeholder=""
               className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
               type="password"
               required
@@ -72,21 +69,27 @@ const Login = () => {
           </div>
           {state === 'register' ? (
             <p>
-              Already have account?{' '}
-              <span onClick={() => setState('login')} className="text-primary cursor-pointer">
-                click here
+              Есть аккаунт?{' '}
+              <span
+                onClick={() => setState('login')}
+                className="text-primary cursor-pointer hover:underline"
+              >
+                Войти
               </span>
             </p>
           ) : (
             <p>
-              Create an account?{' '}
-              <span onClick={() => setState('register')} className="text-primary cursor-pointer">
-                click here
+              Нет аккаунта?{' '}
+              <span
+                onClick={() => setState('register')}
+                className="text-primary cursor-pointer hover:underline"
+              >
+                Зарегистрироваться
               </span>
             </p>
           )}
           <Button className="bg-primary hover:bg-indigo-600 transition-all text-white w-full py-2 rounded-md cursor-pointer">
-            {state === 'register' ? 'Create Account' : 'Login'}
+            {state === 'register' ? 'Создать аккаунт' : 'Войти'}
           </Button>
         </form>
       </div>

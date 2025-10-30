@@ -24,7 +24,7 @@ const Settings = () => {
         <div className="pb-2 flex items-center justify-end border-b border-border">
           {user ? (
             <div className="p-2 font-medium flex items-center gap-2">
-              <User size={22} strokeWidth={1.5} /> {user.name}
+              <User size={20} strokeWidth={1.5} /> {user.name}
             </div>
           ) : (
             <Button
@@ -40,11 +40,11 @@ const Settings = () => {
         </div>
         <div className="mt-2 pb-2 border-b border-border">
           <Button variant="ghost" className="justify-start w-full font-normal">
-            <Languages size={22} strokeWidth={1.5} />
+            <Languages size={20} strokeWidth={1.5} />
             Язык сайта
           </Button>
           <Button variant="ghost" className="justify-start w-full font-normal">
-            <BriefcaseBusiness size={22} strokeWidth={1.5} />
+            <BriefcaseBusiness size={20} strokeWidth={1.5} />
             Стать продавцом
           </Button>
         </div>
@@ -60,7 +60,7 @@ const Settings = () => {
                   }}
                 >
                   <Button variant="ghost" className="justify-start w-full font-normal">
-                    <ShoppingBag size={22} strokeWidth={1.5} />
+                    <ShoppingBag size={20} strokeWidth={1.5} />
                     Мои заказы
                   </Button>
                 </Link>
@@ -72,7 +72,7 @@ const Settings = () => {
                   }}
                 >
                   <Button variant="ghost" className="justify-start w-full font-normal">
-                    <UserRoundCog size={22} strokeWidth={1.5} />
+                    <UserRoundCog size={20} strokeWidth={1.5} />
                     Профиль
                   </Button>
                 </Link>
@@ -87,7 +87,7 @@ const Settings = () => {
                 variant="ghost"
                 className="mt-3 justify-start w-full font-normal text-destructive hover:text-destructive"
               >
-                <LogOut size={22} strokeWidth={1.5} />
+                <LogOut size={20} strokeWidth={1.5} />
                 Выйти из системы
               </Button>
             </>
