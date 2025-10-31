@@ -7,7 +7,7 @@ import Button from '../components/ui/Button';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
 
 const ProductDetails = () => {
-  const { categories, products } = useProducts();
+  const { categories, products, setSelectedCategory } = useProducts();
   const { cart, addToCart, removeFromCart } = useCart();
   const [thumbnail, setThumbnail] = useState(null);
 
@@ -28,15 +28,21 @@ const ProductDetails = () => {
       <div className="max-w-6xl w-full">
         <p className="text-muted-foreground">
           <Link to="/">
-            <Button variant="link">Главная</Button>
+            <Button variant="link" size="xs">
+              Главная
+            </Button>
           </Link>
           /
-          <Link to="#">
-            <Button variant="link">Все категории</Button>
+          <Link to="/category/allcategories-001">
+            <Button onClick={() => setSelectedCategory(null)} variant="link" size="xs">
+              Все категории
+            </Button>
           </Link>
           /
           <Link to={`/category/${productCategory.path.toLowerCase()}-${productCategory._id}`}>
-            <Button variant="link">{product.category}</Button>
+            <Button variant="link" size="xs">
+              {product.category}
+            </Button>
           </Link>
         </p>
 

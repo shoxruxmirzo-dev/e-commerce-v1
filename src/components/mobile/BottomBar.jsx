@@ -55,7 +55,7 @@ const BottomBar = () => {
         >
           <ShoppingCart className="max-xs:w-4" />
           Корзина
-          <div className="absolute top-0 left-13 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">
+          <div className="absolute top-0 left-11 text-xs text-white bg-primary w-4 h-4 rounded-full">
             {getCartTotalCount()}
           </div>
         </Button>
