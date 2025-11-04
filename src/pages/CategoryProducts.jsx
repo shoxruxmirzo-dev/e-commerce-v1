@@ -30,10 +30,10 @@ const CategoryProducts = () => {
   useClickAway(ref, () => setShowSortType(false));
 
   // --- Получаем слаг категории из URL
-  const categorySlug = category_name_id.split('-')[0].toLowerCase();
+  const categorySlug = category_name_id.split('-')[0];
 
   // --- Ищем категорию или создаём "виртуальную" для "Все категории"
-  const searchCategory = categories.find((item) => item.path.toLowerCase() === categorySlug) || {
+  const searchCategory = categories.find((item) => item.path === categorySlug) || {
     text: 'Все категории',
     path: 'allcategories',
   };
@@ -43,7 +43,7 @@ const CategoryProducts = () => {
     if (categorySlug === 'allcategories') {
       return products;
     }
-    return products.filter((product) => product.category.toLowerCase() === categorySlug);
+    return products.filter((product) => product.category === categorySlug);
   }, [products, categorySlug]);
 
   // --- Сортировка продуктов
@@ -87,7 +87,6 @@ const CategoryProducts = () => {
               </Button>
             </Link>
             {'/'}
-
             <span className="font-medium"> {searchCategory.text}</span>
           </>
         )}

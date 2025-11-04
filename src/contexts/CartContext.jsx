@@ -22,7 +22,7 @@ export const CartProvider = ({ children }) => {
     }
 
     setCart(cartData);
-    toast.success('Added to Cart');
+    toast.success('Продукт добавлен в Корзину');
   };
 
   // Remove Product 1 count from Cart
@@ -37,7 +37,7 @@ export const CartProvider = ({ children }) => {
     }
 
     setCart(cartData);
-    toast.success('Removed from Cart');
+    toast.success('Продукт удален из Корзины');
   };
 
   // Delete Product from Cart
@@ -49,13 +49,13 @@ export const CartProvider = ({ children }) => {
     }
 
     setCart(cartData);
-    toast.success('Deleted from Cart');
+    toast.success('Продукт полностью удален из Корзины');
   };
 
   // Delete All Products from Cart
   const clearCart = () => {
     setCart({});
-    toast.success('All Products Deleted from Cart');
+    toast.success('Корзина полностью очищена');
   };
 
   // Get Cart All Products Total Count

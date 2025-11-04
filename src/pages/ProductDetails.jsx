@@ -7,7 +7,7 @@ import Button from '../components/ui/Button';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
 
 const ProductDetails = () => {
-  const { categories, products, setSelectedCategory } = useProducts();
+  const { currency, categories, products, setSelectedCategory } = useProducts();
   const { cart, addToCart, removeFromCart } = useCart();
   const [thumbnail, setThumbnail] = useState(null);
 
@@ -15,9 +15,10 @@ const ProductDetails = () => {
   const navigate = useNavigate();
 
   const product = products.find((item) => item._id === product_name_id.split('-')[1]);
-  const productCategory = categories.find(
-    (item) => item.path.toLowerCase() === product.category.toLowerCase()
-  );
+
+  const getProductCategory = (categoryPath) => {
+    return categories.find((cat) => cat.path === categoryPath);
+  };
 
   useEffect(() => {
     setThumbnail(product?.image[0] ? product.image[0] : null);
@@ -39,12 +40,18 @@ const ProductDetails = () => {
             </Button>
           </Link>
           /
-          <Link to={`/category/${productCategory.path.toLowerCase()}-${productCategory._id}`}>
+          <Link
+            to={`/category/${getProductCategory(product.category).path}-${
+              getProductCategory(product.category)._id
+            }`}
+          >
             <Button variant="link" size="xs">
-              {product.category}
+              {getProductCategory(product.category).text}
             </Button>
           </Link>
         </p>
+
+        <h1 className="mt-4 text-xl sm:text-3xl font-medium">{product.name}</h1>
 
         <div className="flex flex-col md:flex-row gap-16 mt-4">
           <div className="flex gap-3">
@@ -65,17 +72,18 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="text-sm w-full md:w-1/2">
-            <h1 className="text-3xl font-medium">{product.name}</h1>
-
+          <div className="w-full md:w-1/2">
             <div className="mt-6">
-              <p className="text-gray-500/70 line-through">MRP: ${product.price}</p>
-              <p className="text-2xl font-medium">MRP: ${product.offerPrice}</p>
-              <span className="text-gray-500/70">(inclusive of all taxes)</span>
+              <p className="text-muted-foreground line-through">
+                Старая цена: {product.price.toLocaleString()} {currency}
+              </p>
+              <p className="text-xl font-medium">
+                Цена: {product.offerPrice.toLocaleString()} {currency}
+              </p>
             </div>
 
-            <p className="text-base font-medium mt-6">About Product</p>
-            <ul className="list-disc ml-4 text-gray-500/70">
+            <p className="text-base font-medium mt-6">Информация о продукте</p>
+            <ul className="list-disc ml-4 text-muted-foreground">
               {product.description.map((desc, index) => (
                 <li key={index}>{desc}</li>
               ))}
@@ -86,7 +94,7 @@ const ProductDetails = () => {
                 {!cart[product._id] ? (
                   <button
                     onClick={() => addToCart(product._id)}
-                    className="w-full py-3 cursor-pointer font-medium bg-accent/60 text-muted-foreground hover:bg-accent transition rounded-md flex items-center justify-center gap-1"
+                    className="w-full py-3 cursor-pointer font-medium bg-accent text-muted-foreground rounded-md flex items-center justify-center gap-1"
                   >
                     Добавить <ShoppingCart size={20} />
                   </button>

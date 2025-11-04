@@ -1,7 +1,9 @@
-import React from 'react';
+import { Link } from 'react-router';
+import ProductsListGroup from '../components/ProductsListGroup';
+import Button from '../components/ui/Button';
+
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useProducts } from '../contexts/ProductsContext';
-import ProductsListGroup from '../components/ProductsListGroup';
 
 const Favorites = () => {
   const { favorites } = useFavorites();
@@ -11,14 +13,21 @@ const Favorites = () => {
 
   if (favoriteProducts.length === 0) {
     return (
-      <p className="my-20 flex items-center justify-center text-3xl text-center">
-        Нет избранных товаров 😔
-      </p>
+      <div className="min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
+        <h3 className="text-2xl">Добавьте то, что понравилось</h3>
+        <p className="text-sm">Перейдите на главную страницу и нажмите на ♡ в товаре</p>
+        <Link
+          to={'/'}
+          className="flex items-center justify-center gap-2 text-primary font-medium cursor-pointer"
+        >
+          <Button size="md">На главную</Button>
+        </Link>
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className="min-h-[72vh]">
       <ProductsListGroup title="Мои закладки" products={favoriteProducts} />
     </div>
   );

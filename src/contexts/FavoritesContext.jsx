@@ -18,10 +18,10 @@ export const FavoritesProvider = ({ children }) => {
   const toggleFavorites = (product_id) => {
     if (favorites.find((favId) => favId === product_id)) {
       setFavorites((prev) => prev.filter((item_id) => item_id !== product_id));
-      toast.success('Товар удален из Закладки!');
+      toast.success('Продукт удален из Закладки!');
     } else {
       setFavorites((prev) => [...prev, product_id]);
-      toast.success('Товар добавлен в Закладки!');
+      toast.success('Продукт добавлен в Закладки!');
     }
   };
 

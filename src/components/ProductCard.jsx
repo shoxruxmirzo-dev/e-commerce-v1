@@ -18,9 +18,9 @@ const ProductCard = ({ product }) => {
     product && (
       <Link
         to={`/product/${product.name.toLowerCase()}-${product._id}`}
-        className="relative h-full w-full min-w-28 flex flex-col gap-0.5 border border-border rounded-xl overflow-hidden transition"
+        className="relative h-full w-full min-w-28 flex flex-col gap-0.5 rounded-xl overflow-hidden"
       >
-        <div className="rounded-xl">
+        <div className="rounded-xl  bg-secondary">
           <img src={product.image[0]} alt={product.name} className="object-cover" />
           <Button
             onClick={(e) => {
@@ -40,13 +40,30 @@ const ProductCard = ({ product }) => {
           </Button>
         </div>
 
-        <div className="flex flex-col gap-0.5 p-2">
+        <div className="flex flex-col flex-grow gap-0.5 px-0.5">
           <h3 className="mt-2 text-sm" title={product.name}>
             {product.name}
           </h3>
-          <div className="flex items-center justify-between">
+          <p className="text-xs text-muted-foreground">
+            {product.description
+              .filter((desc) => desc && desc.trim() !== '') // убираем пустые
+              .map((desc, index, arr) => {
+                const clean = desc.trim().toLowerCase();
+                const formatted =
+                  index === 0 ? clean.charAt(0).toUpperCase() + clean.slice(1) : clean;
+                const isLast = index === arr.length - 1;
+
+                return (
+                  <span key={index}>
+                    {formatted}
+                    {!isLast && ', '}
+                  </span>
+                );
+              })}
+          </p>
+
+          <div className="flex items-center justify-between mt-auto px-0.5">
             <div className="flex flex-col">
-              <p className="text-xs uppercase text-muted-foreground">Цена:</p>
               <b className="text-sm font-bold">
                 {product.price.toLocaleString('ru-RU')} {currency}
               </b>

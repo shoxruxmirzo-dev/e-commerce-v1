@@ -8,11 +8,16 @@ import {
   ShoppingBag,
   UserRoundCog,
   LogOut,
+  Moon,
+  Sun,
+  Settings,
+  ChevronDown,
 } from 'lucide-react';
 import { useClickAway } from 'react-use';
 
 import SearchBlock from './SearchBlock';
 import Button from './ui/Button';
+import { useTheme } from '../contexts/ThemeProvider';
 import { useAuth } from '../contexts/AuthContext';
 import { useProducts } from '../contexts/ProductsContext';
 import { useCart } from '../contexts/CartContext';
@@ -21,16 +26,20 @@ const Header = () => {
   const { user, setUser, setShowUserLogin } = useAuth();
   const { categories, selectedCategory, setSelectedCategory } = useProducts();
   const { getCartTotalCount } = useCart();
+  const { setTheme } = useTheme();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
   const navigate = useNavigate();
-  const ref = useRef(null);
 
-  useClickAway(ref, () => {
-    if (showUserDropdown) setShowUserDropdown(false);
-    if (isFocused) setIsFocused(false);
-  });
+  const focusRef = useRef(null);
+  const themeRef = useRef(null);
+  const userRef = useRef(null);
+
+  useClickAway(focusRef, () => setIsFocused(false));
+  useClickAway(themeRef, () => setShowThemeDropdown(false));
+  useClickAway(userRef, () => setShowUserDropdown(false));
 
   return (
     <>
@@ -55,7 +64,7 @@ const Header = () => {
                 <span className="">Каталог</span>
               </Button>
 
-              <SearchBlock ref={ref} isFocused={isFocused} setIsFocused={setIsFocused} />
+              <SearchBlock ref={focusRef} isFocused={isFocused} setIsFocused={setIsFocused} />
             </div>
 
             <div className="flex items-center gap-1">
@@ -76,7 +85,7 @@ const Header = () => {
               </Link>
 
               {user ? (
-                <div className="relative">
+                <div ref={userRef} className="relative">
                   <Button
                     onClick={() => setShowUserDropdown((prev) => !prev)}
                     variant="ghost"
@@ -86,10 +95,7 @@ const Header = () => {
                     <span className="hidden xl:inline text-sm">{user.name}</span>
                   </Button>
                   {showUserDropdown && (
-                    <div
-                      ref={ref}
-                      className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col gap-2"
-                    >
+                    <div className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col gap-2">
                       <Link
                         to="/user/orders"
                         onClick={() => {
@@ -135,19 +141,77 @@ const Header = () => {
                 </Button>
               )}
             </div>
+
+            <div ref={themeRef} className="relative">
+              <Button
+                onClick={() => setShowThemeDropdown((prev) => !prev)}
+                variant="ghost"
+                className="flex items-center gap-2"
+                title="Выбрать тему"
+              >
+                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                <span className="sr-only">Выбрать тему</span>
+              </Button>
+              {showThemeDropdown && (
+                <div className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col gap-2">
+                  <Button
+                    onClick={() => {
+                      setShowThemeDropdown(false);
+                      setTheme('light');
+                    }}
+                    variant="ghost"
+                    className="justify-start w-full font-normal"
+                  >
+                    <Sun size={22} strokeWidth={1.5} />
+                    Светлый
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowThemeDropdown(false);
+                      setTheme('dark');
+                    }}
+                    variant="ghost"
+                    className="justify-start w-full font-normal"
+                  >
+                    <Moon size={22} strokeWidth={1.5} />
+                    Темный
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowThemeDropdown(false);
+                      setTheme('system');
+                    }}
+                    variant="ghost"
+                    className="justify-start w-full font-normal"
+                  >
+                    <Settings size={22} strokeWidth={1.5} />
+                    Системный
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="mt-3 flex items-center gap-2">
-            {categories.map((cat, index) => (
-              <Link key={index} to={`/category/${cat.path.toLowerCase()}-${cat._id}`}>
-                <Button
-                  variant={cat.path === selectedCategory ? 'primary' : 'ghost'}
-                  onClick={() => setSelectedCategory(cat.path)}
-                >
-                  {cat.text}
-                </Button>
-              </Link>
-            ))}
+          <div className="mt-3 flex items-center justify-between gap-2">
+            <div className="w-11/12 flex items-center  gap-2 overflow-x-auto scrollbar-none whitespace-nowrap">
+              {categories.map((cat, index) => (
+                <Link key={index} to={`/category/${cat.path}-${cat._id}`}>
+                  <Button
+                    variant={cat.path === selectedCategory ? 'primary' : 'ghost'}
+                    onClick={() => setSelectedCategory(cat.path)}
+                  >
+                    {cat.text}
+                  </Button>
+                </Link>
+              ))}
+            </div>
+            <Button variant="ghost">
+              <span className="flex items-center">
+                Ещё
+                <ChevronDown size={14} />
+              </span>
+            </Button>
           </div>
         </div>
       </header>

@@ -1,22 +1,39 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { useClickAway } from 'react-use';
 import {
   BriefcaseBusiness,
+  ChevronDown,
+  Eclipse,
   Languages,
   LogOut,
   ShoppingBag,
   User,
   UserRoundCog,
+  Sun,
+  Moon,
+  Settings as SettingsIcon,
+  ChevronUp,
 } from 'lucide-react';
 import Button from '../ui/Button';
 
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeProvider';
 
 const Settings = () => {
+  const { theme, setTheme } = useTheme();
   const { user, setUser, setSelectedLink, setShowUserLogin, showUserCabinet, setShowUserCabinet } =
     useAuth();
+  const [showThemeDropdown, setShowThemeDropdown] = useState(false);
+  const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const [language, setLanguage] = useState('rus');
 
   const navigate = useNavigate();
+  const themeRef = useRef(null);
+  const langRef = useRef(null);
+
+  useClickAway(themeRef, () => setShowThemeDropdown(false));
+  useClickAway(langRef, () => setShowLangDropdown(false));
 
   return (
     showUserCabinet && (
@@ -38,11 +55,117 @@ const Settings = () => {
             </Button>
           )}
         </div>
-        <div className="mt-2 pb-2 border-b border-border">
-          <Button variant="ghost" className="justify-start w-full font-normal">
-            <Languages size={20} strokeWidth={1.5} />
-            Язык сайта
-          </Button>
+        <div className="mt-2 pb-2 border-b border-border ">
+          <div ref={themeRef} className="relative">
+            <Button
+              onClick={() => setShowThemeDropdown((prev) => !prev)}
+              variant="ghost"
+              className="justify-start w-full font-normal relative"
+            >
+              <div className="flex items-center gap-2 justify-between">
+                <Eclipse size={20} strokeWidth={1.5} />
+                Тема:
+              </div>
+              <div className="ml-auto flex items-center font-semibold">
+                <span>
+                  {theme === 'light' ? (
+                    <span className="flex items-center gap-1">
+                      <Sun size={16} />
+                      Светлый
+                    </span>
+                  ) : theme === 'dark' ? (
+                    <span className="flex items-center gap-1">
+                      <Moon size={16} />
+                      Темный
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <SettingsIcon size={16} />
+                      Системный
+                    </span>
+                  )}
+                </span>
+                {showThemeDropdown ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+              </div>
+            </Button>
+            {showThemeDropdown && (
+              <div className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col z-15">
+                <Button
+                  onClick={() => {
+                    setShowThemeDropdown(false);
+                    setTheme('light');
+                  }}
+                  variant="ghost"
+                  className="justify-start w-full font-normal"
+                >
+                  <Sun size={16} />
+                  Светлый
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowThemeDropdown(false);
+                    setTheme('dark');
+                  }}
+                  variant="ghost"
+                  className="justify-start w-full font-normal"
+                >
+                  <Moon size={16} />
+                  Темный
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowThemeDropdown(false);
+                    setTheme('system');
+                  }}
+                  variant="ghost"
+                  className="justify-start w-full font-normal"
+                >
+                  <SettingsIcon size={16} />
+                  Системный
+                </Button>
+              </div>
+            )}
+          </div>
+          <div ref={langRef} className="relative">
+            <Button
+              onClick={() => setShowLangDropdown((prev) => !prev)}
+              variant="ghost"
+              className="justify-start w-full font-normal"
+            >
+              <div className="flex items-center gap-2 justify-between">
+                <Languages size={20} strokeWidth={1.5} />
+                Язык сайта:
+              </div>
+              <div className="ml-auto flex items-center font-semibold">
+                <span>{language === 'rus' ? 'Русский' : 'Ўзбекча'}</span>
+                {showLangDropdown ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+              </div>
+            </Button>
+            {showLangDropdown && (
+              <div className="p-1 absolute top-10 right-0 bg-background border border-border rounded shadow flex flex-col z-10">
+                <Button
+                  onClick={() => {
+                    setShowLangDropdown(false);
+                    setLanguage('rus');
+                  }}
+                  variant="ghost"
+                  className="justify-start w-full font-normal"
+                >
+                  Русский
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowLangDropdown(false);
+                    setLanguage('uzb');
+                  }}
+                  variant="ghost"
+                  className="justify-start w-full font-normal"
+                >
+                  Ўзбекча
+                </Button>
+              </div>
+            )}
+          </div>
           <Button variant="ghost" className="justify-start w-full font-normal">
             <BriefcaseBusiness size={20} strokeWidth={1.5} />
             Стать продавцом

@@ -30,7 +30,7 @@ const Login = () => {
         <form
           onSubmit={handleSubmit}
           ref={ref}
-          className="flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] text-gray-500 rounded-lg shadow-xl border border-gray-200 bg-white"
+          className="flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] bg-background text-gray-500 rounded-lg shadow-xl border border-border"
         >
           <p className="text-2xl font-medium m-auto">
             <span className="text-primary"></span> {state === 'login' ? 'Вход' : 'Регистрация'}
@@ -41,7 +41,7 @@ const Login = () => {
               <input
                 onChange={(e) => setName(e.target.value)}
                 placeholder=""
-                className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+                className="border border-border rounded w-full p-2 mt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 type="text"
                 required
               />
@@ -52,7 +52,7 @@ const Login = () => {
             <input
               onChange={(e) => setEmail(e.target.value)}
               placeholder=""
-              className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+              className="border border-border rounded w-full p-2 mt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               type="email"
               required
             />
@@ -62,7 +62,7 @@ const Login = () => {
             <input
               onChange={(e) => setPassword(e.target.value)}
               placeholder=""
-              className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+              className="border border-border rounded w-full p-2 mt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               type="password"
               required
             />
