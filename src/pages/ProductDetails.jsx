@@ -72,13 +72,19 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="w-1/2 sm:w-2/5 lg:w-1/2 ">
+          <div className="sm:w-2/5 lg:w-1/2 ">
             <div>
-              <p className="text-muted-foreground line-through">
-                Старая цена: {product.price.toLocaleString()} {currency}
-              </p>
               <p className="text-xl font-medium">
-                Цена: {product.offerPrice.toLocaleString()} {currency}
+                Цена:{' '}
+                <span>
+                  {product.offerPrice.toLocaleString()} {currency}
+                </span>
+              </p>
+              <p className="text-xl text-muted-foreground">
+                Старая цена:{' '}
+                <span className="line-through">
+                  {product.price.toLocaleString()} {currency}
+                </span>
               </p>
             </div>
 

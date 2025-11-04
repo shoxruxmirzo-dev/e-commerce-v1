@@ -32,7 +32,7 @@ const Cart = () => {
 
   if (cartProducts.length === 0) {
     return (
-      <div className="min-h-[72vh] lg:min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
+      <div className="min-h-[71vh] lg:min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
         <h3 className="text-2xl">В корзине пока пусто</h3>
         <p className="text-sm">
           Начните с главной страницы — нужный товар можно найти через поиск или заглянуть в подборки
@@ -54,17 +54,10 @@ const Cart = () => {
       <div className="flex flex-col lg:flex-row lg:flex-wrap gap-8">
         {/* Левая часть — товары */}
         <div className="p-3 flex-1 min-w-0 w-full border border-border rounded-md">
-          <div className="pb-1 grid grid-cols-[2.5fr_0.8fr_0.8fr_0.7fr] sm:grid-cols-[2fr_1fr_1fr_1fr] gap-1 lg:grid-cols-[2.5fr_0.8fr_0.8fr_0.7fr] text-muted-foreground text-xs  sm:text-sm md:text-base font-medium">
-            <p className="text-left">Продукт</p>
-            <p className="text-center">Количество</p>
-            <p className="text-center">Сумма</p>
-            <p className="text-center">Удалить</p>
-          </div>
-
           {cartProducts.map((product, index) => (
             <div
               key={index}
-              className="grid grid-cols-[2.5fr_0.8fr_0.8fr_0.7fr] sm:grid-cols-[2fr_1fr_1fr_1fr] lg:grid-cols-[2.5fr_0.8fr_0.8fr_0.7fr] gap-1 border-b border-border text-muted-foreground items-center text-xs sm:text-sm md:text-base font-medium py-2"
+              className="grid grid-cols-[2.8fr_1fr_0.5fr] sm:grid-cols-[2fr_1fr_1fr_1fr] lg:grid-cols-[2.5fr_0.8fr_0.8fr_0.7fr] gap-1 border-b border-border text-muted-foreground items-center text-xs sm:text-sm xl:text-base font-medium py-2"
             >
               <Link
                 to={`/product/${product.name}-${product._id}`}
@@ -83,9 +76,33 @@ const Cart = () => {
                       </span>
                     </p>
                   </div>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    className="flex sm:hidden items-center"
+                  >
+                    <div className="mt-1 px-1 flex items-center justify-center gap-2 md:w-22 w-16 h-[28px] bg-secondary rounded">
+                      <button
+                        onClick={() => removeFromCart(product._id)}
+                        className="cursor-pointer text-sm px-0.5 h-full"
+                      >
+                        <Minus size={14} />
+                      </button>
+                      <span className="w-7 text-center">{cart[product._id]}</span>
+                      <button
+                        onClick={() => addToCart(product._id)}
+                        className="cursor-pointer text-sm px-0.5 h-full"
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </Link>
-              <div className="flex items-center justify-center">
+
+              <div className="hidden sm:flex items-center justify-center">
                 <div className="mt-1 px-1 flex items-center justify-center gap-2 md:w-22 w-16 h-[28px] bg-secondary rounded">
                   <button
                     onClick={() => removeFromCart(product._id)}
@@ -102,9 +119,11 @@ const Cart = () => {
                   </button>
                 </div>
               </div>
+
               <p className="text-center">
                 {(product.offerPrice * product.quantity).toLocaleString()} {currency}
               </p>
+
               <button
                 onClick={() => deleteFromCart(product._id)}
                 className="cursor-pointer mx-auto"
