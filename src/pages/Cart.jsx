@@ -22,8 +22,8 @@ const Cart = () => {
     setCartProducts(tempArray);
   };
 
-  const getCategoryText = (categoryPath) => {
-    return categories.find((cat) => cat.path === categoryPath).text;
+  const getProductCategory = (categoryPath) => {
+    return categories.find((cat) => cat.path === categoryPath);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Cart = () => {
 
   if (cartProducts.length === 0) {
     return (
-      <div className="min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
+      <div className="min-h-[72vh] lg:min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
         <h3 className="text-2xl">В корзине пока пусто</h3>
         <p className="text-sm">
           Начните с главной страницы — нужный товар можно найти через поиск или заглянуть в подборки
@@ -78,7 +78,9 @@ const Cart = () => {
                   <div className=" font-normal">
                     <p>
                       Категория:{' '}
-                      <span className="text-foreground">{getCategoryText(product.category)}</span>
+                      <span className="text-foreground">
+                        {getProductCategory(product.category).text}
+                      </span>
                     </p>
                   </div>
                 </div>

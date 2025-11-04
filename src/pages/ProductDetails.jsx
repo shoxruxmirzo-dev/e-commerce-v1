@@ -26,7 +26,7 @@ const ProductDetails = () => {
 
   return (
     product && (
-      <div className="max-w-6xl w-full">
+      <div className="max-w-6xl w-full min-h-[77vh]">
         <p className="text-muted-foreground">
           <Link to="/">
             <Button variant="link" size="xs">
@@ -60,20 +60,20 @@ const ProductDetails = () => {
                 <div
                   key={index}
                   onClick={() => setThumbnail(image)}
-                  className="border max-w-24 border-gray-500/30 rounded overflow-hidden cursor-pointer"
+                  className="max-w-24 bg-secondary rounded overflow-hidden cursor-pointer"
                 >
                   <img src={image} alt={`Thumbnail ${index + 1}`} />
                 </div>
               ))}
             </div>
 
-            <div className="border border-gray-500/30 max-w-100 rounded overflow-hidden">
+            <div className="max-w-100 bg-secondary rounded overflow-hidden">
               <img src={thumbnail} alt="Selected product" className="w-full h-full object-cover" />
             </div>
           </div>
 
-          <div className="w-full md:w-1/2">
-            <div className="mt-6">
+          <div className="w-1/2 sm:w-2/5 lg:w-1/2 ">
+            <div>
               <p className="text-muted-foreground line-through">
                 Старая цена: {product.price.toLocaleString()} {currency}
               </p>
@@ -90,7 +90,7 @@ const ProductDetails = () => {
             </ul>
 
             <div className="min-w-[370px] max-w-md w-full flex items-center justify-normal mt-10 gap-4 text-base px-2">
-              <div onClick={(e) => e.stopPropagation()} className=" text-primary w-1/2">
+              <div onClick={(e) => e.stopPropagation()} className=" text-primary w-1/3 lg:w-1/2">
                 {!cart[product._id] ? (
                   <button
                     onClick={() => addToCart(product._id)}
@@ -123,7 +123,7 @@ const ProductDetails = () => {
                   addToCart(product._id);
                   navigate('/cart');
                 }}
-                className="w-1/2 py-3 cursor-pointer font-medium bg-primary/80 text-white hover:bg-primary/95 rounded-md flex items-center justify-center gap-1"
+                className="w-1/3 lg:w-1/2 py-3 cursor-pointer font-medium bg-primary/80 text-white hover:bg-primary/95 rounded-md flex items-center justify-center gap-1"
               >
                 Перейти <ShoppingCart size={20} />
               </button>

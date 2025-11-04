@@ -13,7 +13,7 @@ const Favorites = () => {
 
   if (favoriteProducts.length === 0) {
     return (
-      <div className="min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
+      <div className="min-h-[71vh] lg:min-h-[77vh] flex flex-col items-center justify-center gap-4 text-center">
         <h3 className="text-2xl">Добавьте то, что понравилось</h3>
         <p className="text-sm">Перейдите на главную страницу и нажмите на ♡ в товаре</p>
         <Link
